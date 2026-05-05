@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#C0390B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cumpleaños TDB">
+<title>Cumpleaños · Talleres Don Bosco 2026</title>
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C0390B;
+    --orange: #E85A10;
+    --orange2: #FF8C00;
+    --yellow: #F5C200;
+    --cream: #F5EE8A;
+    --white: #FFFFFF;
+    --dark: #2C1A0E;
+    --gray: #f4f4f4;
+    --card-shadow: 0 4px 20px rgba(192,57,11,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--gray);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .app-header {
+    background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
+    padding: 16px 20px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--white);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .header-subtitle {
+    font-size: 11px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .heart-icon {
+    font-size: 32px;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  /* ── SEARCH ── */
+  .search-wrap {
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border-radius: 25px;
+    border: none;
+    background: rgba(255,255,255,0.2);
+    color: var(--white);
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    transition: background 0.2s;
+  }
+
+  .search-input::placeholder { color: rgba(255,255,255,0.7); }
+  .search-input:focus { background: rgba(255,255,255,0.3); }
+
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+  }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    display: flex;
+    background: var(--white);
+    border-bottom: 2px solid var(--cream);
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 118px;
+    z-index: 99;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+
+  .nav-tab {
+    flex-shrink: 0;
+    padding: 12px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    color: #999;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-tab.active {
+    color: var(--orange);
+    border-bottom-color: var(--orange);
+  }
+
+  .nav-tab.has-today {
+    color: var(--red);
+  }
+
+  /* ── TODAY BANNER ── */
+  .today-banner {
+    background: linear-gradient(135deg, var(--yellow), var(--orange2));
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideIn 0.4s ease;
+  }
+
+  .today-banner-text {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--dark);
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main-content {
+    padding: 16px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── VIEW TOGGLE ── */
+  .view-toggle {
+    display: flex;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 16px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .toggle-btn {
+    flex: 1;
+    padding: 8px;
+    border-radius: 9px;
+    border: none;
+    background: none;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    color: #aaa;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .toggle-btn.active {
+    background: var(--orange);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(232,90,16,0.4);
+  }
+
+  /* ── DAY GROUP ── */
+  .day-group {
+    margin-bottom: 20px;
+    animation: fadeUp 0.3s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .day-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: var(--orange);
+    line-height: 1;
+    min-width: 56px;
+    text-align: center;
+  }
+
+  .day-number.today {
+    color: var(--red);
+    text-shadow: 0 2px 8px rgba(192,57,11,0.3);
+  }
+
+  .day-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, var(--yellow), transparent);
+    border-radius: 2px;
+  }
+
+  .today-badge {
+    background: var(--red);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: pulse 1.5s infinite;
+  }
+
+  /* ── STUDENT CARD ── */
+  .student-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-left: 4px solid var(--orange);
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .student-card:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(192,57,11,0.1);
+  }
+
+  .student-card.today-card {
+    border-left-color: var(--red);
+    background: linear-gradient(135deg, #fff9f7, #fff);
+  }
+
+  .student-card::after {
+    content: '🎂';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    opacity: 0.15;
+  }
+
+  .student-card.today-card::after {
+    opacity: 0.4;
+    animation: spin 3s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to { transform: translateY(-50%) rotate(360deg); }
+  }
+
+  .card-cake {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .card-info { flex: 1; min-width: 0; }
+
+  .card-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+  }
+
+  .card-date {
+    font-size: 11px;
+    font-weight: 600;
+    color: #999;
+    margin-bottom: 3px;
+  }
+
+  .card-group {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--orange);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-age {
+    background: var(--orange);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 800;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .card-age.today-age {
+    background: var(--red);
+    animation: pulse 1.5s infinite;
+  }
+
+  /* ── CALENDAR VIEW ── */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+
+  .cal-day-label {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 800;
+    color: #bbb;
+    padding: 4px 0;
+    text-transform: uppercase;
+  }
+
+  .cal-day {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ccc;
+    background: var(--white);
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+
+  .cal-day:active { transform: scale(0.9); }
+
+  .cal-day.empty { background: transparent; }
+
+  .cal-day.has-birthday {
+    background: linear-gradient(135deg, var(--yellow), var(--orange2));
+    color: var(--dark);
+    box-shadow: 0 2px 8px rgba(245,194,0,0.4);
+  }
+
+  .cal-day.is-today {
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    color: var(--white);
+    box-shadow: 0 2px 12px rgba(192,57,11,0.5);
+    font-size: 14px;
+  }
+
+  .cal-day .dot {
+    position: absolute;
+    bottom: 3px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+
+  .cal-day.has-birthday .dot { background: var(--red); }
+  .cal-day.is-today .dot { background: var(--white); }
+
+  /* ── SEARCH RESULTS ── */
+  .search-results-header {
+    font-size: 13px;
+    font-weight: 800;
+    color: #999;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #bbb;
+  }
+  .empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
+  .empty-state p { font-size: 14px; font-weight: 600; }
+
+  /* ── MONTH SUMMARY ── */
+  .month-summary {
+    background: linear-gradient(135deg, var(--orange), var(--red));
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 16px rgba(192,57,11,0.3);
+  }
+
+  .month-summary-count {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+  }
+
+  .month-summary-label {
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .month-summary-icon { font-size: 40px; }
+
+  /* ── INSTALL PROMPT ── */
+  .install-prompt {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark);
+    color: var(--white);
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    cursor: pointer;
+    z-index: 1000;
+    white-space: nowrap;
+    animation: slideUp 0.4s ease;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+  }
+
+  .install-close {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── CONFETTI ── */
+  .confetti-container {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .confetti-piece {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    animation: confettiFall linear both;
+    top: -20px;
+  }
+
+  @keyframes confettiFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="confetti-container" id="confettiContainer"></div>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Cumpleaños TDB</div>
+      <div class="header-subtitle">Talleres Don Bosco · 2026</div>
+    </div>
+    <div class="heart-icon">🔥</div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" id="searchInput"
+           placeholder="Buscar alumno..." autocomplete="off">
+  </div>
+</div>
+
+<!-- NAV TABS -->
+<div class="nav-tabs" id="navTabs"></div>
+
+<!-- TODAY BANNER -->
+<div id="todayBanner" style="display:none" class="today-banner">
+  <span style="font-size:20px">🎂</span>
+  <span class="today-banner-text" id="todayBannerText"></span>
+</div>
+
+<!-- MAIN -->
+<div class="main-content" id="mainContent"></div>
+
+<!-- INSTALL PROMPT -->
+<div class="install-prompt" id="installPrompt" style="display:none">
+  <span>📱</span>
+  <span>Instalar como app</span>
+  <button class="install-close" onclick="document.getElementById('installPrompt').style.display='none'">✕</button>
+</div>
+
+<script>
+const MONTHS = ['','Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+const STUDENTS = [
+  {name:"Botana Silva, Pablo Sebastián",d:1,m:1,y:2006,g:"1º Mec. Automotriz C"},
+  {name:"Martínez Oreggioni, Tiago",d:2,m:1,y:2009,g:"BTP 1º Carpintería"},
+  {name:"Olivera Rodriguez, Maicol Nicolás",d:2,m:1,y:2010,g:"BTP 2º Carpintería"},
+  {name:"García Gonzalez, Diego Luciano",d:5,m:1,y:2009,g:"1º Mec. Automotriz A"},
+  {name:"Camblong Gimeno, Etienne",d:12,m:1,y:2008,g:"3º Mec. Automotriz A"},
+  {name:"Cheda Centurion, Ignacio",d:14,m:1,y:2009,g:"1º Mec. Automotriz C"},
+  {name:"González, Thiago",d:14,m:1,y:2009,g:"BTP 1º Carpintería"},
+  {name:"Franco Silva, Jhon Jairo",d:16,m:1,y:2011,g:"BTP 1º Carpintería"},
+  {name:"Olivera Prieto dos Santos, Jorge",d:16,m:1,y:2008,g:"BTP 3º Carpintería"},
+  {name:"Gonzalez Alvez, Benjamín",d:18,m:1,y:2009,g:"BTP 1º Carpintería"},
+  {name:"Piazze Ruiz, Stefano",d:18,m:1,y:2006,g:"BTP 2º Mec. Industrial"},
+  {name:"Saravia Martínez, Facundo Isac",d:20,m:1,y:2008,g:"BTP 2º Carpintería"},
+  {name:"Clara Nassif, Gianluca",d:21,m:1,y:2007,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Iriarte Olivera, Agustín",d:21,m:1,y:2010,g:"2º Mec. Automotriz A"},
+  {name:"Machado Fontora, Nicolás",d:22,m:1,y:2009,g:"3º Mec. Automotriz B"},
+  {name:"Gonzalez Cataldo, Yhojan",d:25,m:1,y:2011,g:"BTP 1º Carpintería"},
+  {name:"Lopez Batista, Lucas",d:28,m:1,y:2008,g:"BTP 1º Inst. Eléctricas"},
+  {name:"Majfud Bornia, Gastón Alejandro",d:30,m:1,y:2004,g:"BTP 3º Mec. Industrial"},
+  {name:"Díaz Cagnone, Marcelo",d:31,m:1,y:2002,g:"3º Mec. Automotriz B"},
+  {name:"Curbelo Alcorta, Valentín",d:4,m:2,y:2009,g:"BTP 3º Mec. Industrial"},
+  {name:"Rodas Miranda, Valentín",d:4,m:2,y:2010,g:"1º Mec. Automotriz A"},
+  {name:"Santander Sampallo, Sebastián",d:6,m:2,y:2006,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Fleurquin Campagnani, Álvaro",d:8,m:2,y:2004,g:"BTP 3º Mec. Industrial"},
+  {name:"Rüting Bertinat, Eugene Gustav",d:8,m:2,y:2008,g:"BTP 2º Mec. Industrial"},
+  {name:"Domínguez Ferraro, Lautaro",d:13,m:2,y:2006,g:"3º Mec. Automotriz B"},
+  {name:"González Campaña, Nelson Santiago",d:13,m:2,y:2009,g:"BTP 2º Carpintería"},
+  {name:"Gómez Cuadri, Franco",d:13,m:2,y:2007,g:"3º Mec. Automotriz B"},
+  {name:"De Freitas Sastre, Gaspar",d:14,m:2,y:2011,g:"BTP 1º Mec. Industrial"},
+  {name:"Martínez Olivar, Alexander",d:14,m:2,y:2010,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Monetti Rocha, Mauro",d:14,m:2,y:2006,g:"3º Mec. Automotriz A"},
+  {name:"Gindel Castellano, Felipe",d:15,m:2,y:2005,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Muniz Silvera, Leandro",d:16,m:2,y:2005,g:"3º Mec. Automotriz B"},
+  {name:"Valiente Touriño, Juan Manuel",d:20,m:2,y:2008,g:"1º Mec. Automotriz C"},
+  {name:"Fernández Vailli, Tomás",d:23,m:2,y:2008,g:"1º Mec. Automotriz C"},
+  {name:"Sosa Rodriguez, Benjamin",d:24,m:2,y:2009,g:"BTP 1º Mec. Industrial"},
+  {name:"Castro Hornos, Valentín",d:25,m:2,y:2008,g:"BTP 1º Mec. Industrial"},
+  {name:"Rodríguez Falero, Alfonso Andrés",d:25,m:2,y:2004,g:"BTP 3º Mec. Industrial"},
+  {name:"Otárola Reyes, Leandro Nahuel",d:26,m:2,y:2009,g:"BTP 3º Mec. Industrial"},
+  {name:"Salvagno Echevarría, Gastón Iván",d:26,m:2,y:2004,g:"BTP 3º Mec. Industrial"},
+  {name:"Alvarez Ferrizzo, Valentín",d:27,m:2,y:2008,g:"1º Mec. Automotriz A"},
+  {name:"Menéndez Echerverría, Tomás",d:27,m:2,y:2004,g:"BTP 3º Carpintería"},
+  {name:"Telis Sosa, Edison Jonathan",d:2,m:3,y:2001,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Moreno Borges, Rodrigo Andrés",d:3,m:3,y:2010,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Guichón Gutiérrez, Felipe",d:8,m:3,y:2005,g:"3º Mec. Automotriz B"},
+  {name:"Díaz Rodríguez, Lucas",d:9,m:3,y:2010,g:"BTP 1º Inst. Eléctricas"},
+  {name:"Ortega Possamai, Leandro",d:10,m:3,y:2008,g:"1º Mec. Automotriz C"},
+  {name:"Perera Figueron, Juaquín",d:10,m:3,y:2010,g:"2º Mec. Automotriz A"},
+  {name:"Garcia Viera, Thiago",d:13,m:3,y:2011,g:"BTP 1º Inst. Eléctricas"},
+  {name:"Blanco Guigou, Benicio",d:15,m:3,y:2008,g:"BTP 1º Mec. Industrial"},
+  {name:"Fassana Remedi, Lucas",d:15,m:3,y:2005,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Fonseca Pintos, Alexis Santiago",d:15,m:3,y:2007,g:"1º Mec. Automotriz A"},
+  {name:"Barneche Conrad, Valentino",d:17,m:3,y:2010,g:"BTP 2º Mec. Industrial"},
+  {name:"Bustos Constantino, Juan Daniel",d:17,m:3,y:2011,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Sosa Spalatto, Axel Fernando",d:19,m:3,y:2008,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Osores Fernández, Juan Francisco",d:20,m:3,y:2006,g:"BTP 3º Mec. Industrial"},
+  {name:"Torras Zapata, Felipe",d:20,m:3,y:2002,g:"BTP 3º Inst. Eléctricas"},
+  {name:"Possali Pérez, Facundo",d:21,m:3,y:2010,g:"2º Inst. Eléctricas"},
+  {name:"da Cunda Sena, Juan Pedro",d:23,m:3,y:2006,g:"2º Mec. Automotriz A"},
+  {name:"Larrarte Berro, Pio Joaquín",d:24,m:3,y:2008,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Di Fortuna Zarate, Juan Antonio",d:25,m:3,y:2008,g:"1º Mec. Automotriz C"},
+  {name:"Plenc Castro, Guillermo Sebastián",d:26,m:3,y:2010,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Harreguy Almeida, José",d:29,m:3,y:2006,g:"3º Mec. Automotriz A"},
+  {name:"Ronqui Quirico, Lorenzo",d:30,m:3,y:2009,g:"3º Mec. Automotriz B"},
+  {name:"Baccino Gestro, Sadit Alejandro",d:31,m:3,y:2005,g:"BTP 3º Mec. Industrial"},
+  {name:"Bordagorri de León, Jerónimo",d:3,m:4,y:2004,g:"BTP 2º Carpintería"},
+  {name:"López Godiño, Francisco",d:4,m:4,y:2007,g:"2º Mec. Automotriz A"},
+  {name:"Díaz Segovia, Benjamín",d:5,m:4,y:2009,g:"BTP 2º Mec. Industrial"},
+  {name:"Malvárez Pereira, Triana Belén",d:6,m:4,y:2005,g:"BTP 3º Inst. Eléctricas"},
+  {name:"Conde Castro, Francisco Walther",d:7,m:4,y:2011,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Araujo Machado, Vinicio",d:8,m:4,y:2010,g:"2º Mec. Automotriz A"},
+  {name:"Feirrer Rossi, Brahian",d:8,m:4,y:2010,g:"2º Inst. Eléctricas"},
+  {name:"Barrios Texeira, Imanol",d:10,m:4,y:2007,g:"BTP 1º Inst. Eléctricas"},
+  {name:"Braga Hernández, Antonio Floricio",d:10,m:4,y:2007,g:"BTP 2º Mec. Industrial"},
+  {name:"Fleitas Silveira, Joaquin Alejo",d:11,m:4,y:2010,g:"BTP 2º Carpintería"},
+  {name:"Guerrero Torres, Franco",d:13,m:4,y:2007,g:"BTP 1º Mec. Industrial"},
+  {name:"Oholeguy Casaretto, Inti Pascual",d:17,m:4,y:2011,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Nuñez da Silva, Miguel",d:18,m:4,y:2008,g:"1º Mec. Automotriz C"},
+  {name:"Quiroz De León, Francisco",d:18,m:4,y:2007,g:"3º Mec. Automotriz B"},
+  {name:"Cabrera Cortazzo, Mateo Tomás",d:19,m:4,y:2006,g:"BTP 3º Mec. Industrial"},
+  {name:"Scapino García, Lucas",d:20,m:4,y:2009,g:"BTP 3º Mec. Industrial"},
+  {name:"Bandera Perdomo, Valentín",d:23,m:4,y:2005,g:"2º Mec. Automotriz A"},
+  {name:"Acea Fasulo, Sofía Montserrat",d:26,m:4,y:2011,g:"BTP 1º B Mec. Automotriz"},
+  {name:"De León Zeballos, Santiago",d:30,m:4,y:2003,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Viera Garabaño, Mauricio Ramiro",d:30,m:4,y:2009,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Brun Viera, Lucas",d:5,m:5,y:2005,g:"BTP 2º Mec. Industrial"},
+  {name:"Nardi Ipar, Juan Gabriel",d:6,m:5,y:2009,g:"1º Mec. Automotriz A"},
+  {name:"García Pintos Torres Negreira, F.",d:9,m:5,y:2000,g:"BTP 2º Carpintería"},
+  {name:"Peyrot Lima, Jean Pierre",d:12,m:5,y:2009,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Pérez Rodríguez, Rodrigo Alejandro",d:12,m:5,y:2007,g:"1º Mec. Automotriz A"},
+  {name:"Fabbri Lago, Francisco",d:13,m:5,y:2009,g:"2º Mec. Automotriz A"},
+  {name:"Gallinal Rischewski, Mª Magdalena",d:16,m:5,y:2006,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Sanchez Santos, Valentin Ignacio",d:17,m:5,y:2005,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Bertolino Margiotta, Francisco",d:18,m:5,y:2006,g:"2º Mec. Automotriz A"},
+  {name:"Rivadavia Rossi, Santiago",d:18,m:5,y:2009,g:"2º Mec. Automotriz A"},
+  {name:"Fernández Diaz, Juan Adilio",d:19,m:5,y:2010,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Soca Perez, Manuel",d:20,m:5,y:2010,g:"BTP 1º Carpintería"},
+  {name:"Díaz Britos, Franco",d:23,m:5,y:2008,g:"3º Mec. Automotriz B"},
+  {name:"De la Pedrueza Bentancor, Luka",d:24,m:5,y:2009,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Mernies Bentos, Mateo",d:24,m:5,y:2010,g:"BTP 1º Mec. Industrial"},
+  {name:"Valle Huelmo, Lautaro",d:24,m:5,y:2008,g:"BTP 3º Inst. Eléctricas"},
+  {name:"Fernández González, Antoni Est.",d:25,m:5,y:2005,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Pérez Quinteros, Benjamin",d:26,m:5,y:2009,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Mercadal Ibarra, Juan Manuel",d:27,m:5,y:2009,g:"BTP 2º Mec. Industrial"},
+  {name:"Balicia Martínez, Mario",d:28,m:5,y:2009,g:"2º Mec. Automotriz A"},
+  {name:"Collazo Pi, Lorenzo Ismael",d:29,m:5,y:2008,g:"BTP 3º Mec. Industrial"},
+  {name:"Pita Heguy, Ignacio Manuel",d:1,m:6,y:2009,g:"1º Mec. Automotriz A"},
+  {name:"Martínez Maciel, Joaquín",d:5,m:6,y:2009,g:"2º Mec. Automotriz A"},
+  {name:"Aquino Iglesias, Leandro Ezequiel",d:6,m:6,y:2007,g:"BTP 3º Carpintería"},
+  {name:"Giménez Morales, Bautista",d:8,m:6,y:2008,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Porta Mier, Valentín",d:8,m:6,y:2006,g:"2º Mec. Automotriz A"},
+  {name:"Bares Rodriguez, Juan Ignacio",d:9,m:6,y:2006,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Sanabria Garcia, Fabricio",d:9,m:6,y:2007,g:"1º Mec. Automotriz C"},
+  {name:"Zeballos Gramoso, Facundo Irineo",d:9,m:6,y:2006,g:"1º Mec. Automotriz A"},
+  {name:"Corrales Cabello, Martín Alejandro",d:11,m:6,y:2004,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Romero Osores, Lorenzo",d:11,m:6,y:2007,g:"BTP 1º Mec. Industrial"},
+  {name:"Silva Pintos, Luis Gabriel",d:11,m:6,y:2005,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Echevarría Fitipaldo, Ignacio",d:12,m:6,y:2006,g:"3º Mec. Automotriz B"},
+  {name:"Rodríguez Mundo, Maicol Andrés",d:13,m:6,y:2008,g:"BTP 3º Mec. Industrial"},
+  {name:"Falero Cruz, Tomás",d:15,m:6,y:2009,g:"BTP 1º Mec. Industrial"},
+  {name:"Montaña Pérez, Agustín",d:15,m:6,y:2006,g:"BTP 2º Mec. Industrial"},
+  {name:"Román Muñiz, Santiago Alfonso",d:22,m:6,y:2010,g:"1º Mec. Automotriz A"},
+  {name:"Reimúndez Moldes, Raúl",d:25,m:6,y:2009,g:"BTP 2º Mec. Industrial"},
+  {name:"De los Santos Madrid, Martina",d:27,m:6,y:2009,g:"2º Mec. Automotriz A"},
+  {name:"Castro López, Santiago",d:29,m:6,y:2010,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Taran Súarez, Nicolás",d:29,m:6,y:2006,g:"2º Mec. Automotriz A"},
+  {name:"Fabbri Lago, Facundo",d:30,m:6,y:2005,g:"3º Mec. Automotriz B"},
+  {name:"Aguirre Segovia, Rodrigo",d:1,m:7,y:2009,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Pistón LLorea, Ismael",d:1,m:7,y:2010,g:"BTP 1º Mec. Industrial"},
+  {name:"Barros Marichal, Gonzalo Martín",d:4,m:7,y:2008,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Castro Sánchez, Matías Javier",d:5,m:7,y:2003,g:"BTP 3º Mec. Industrial"},
+  {name:"Lopetegui Duarte, Iván Joaquín",d:6,m:7,y:2007,g:"BTP 2º Mec. Industrial"},
+  {name:"Odella Cabillon, Martin Paul",d:6,m:7,y:2009,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Mendez Caillabet, Thiago Andrés",d:7,m:7,y:2010,g:"1º Mec. Automotriz A"},
+  {name:"Cóccaro Delgado, Patricio Tobías",d:10,m:7,y:2008,g:"BTP 3º Mec. Industrial"},
+  {name:"Olivera López, Enzo Sebastián",d:10,m:7,y:2007,g:"1º Mec. Automotriz C"},
+  {name:"Pintos Damseaux, Sebastián",d:11,m:7,y:2006,g:"2º Mec. Automotriz A"},
+  {name:"Etchepare Izaguirre, Anthony",d:14,m:7,y:2007,g:"1º Mec. Automotriz C"},
+  {name:"González Sosa, Lucas Ignacio",d:16,m:7,y:2010,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Pérez Cáceres, Matías",d:19,m:7,y:2005,g:"3º Mec. Automotriz A"},
+  {name:"Chiossi García, Nicolás",d:20,m:7,y:2010,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Bueno Rodriguez, Vicente",d:24,m:7,y:2007,g:"1º Mec. Automotriz C"},
+  {name:"Cáceres Bentancor, Ignacio",d:29,m:7,y:2008,g:"BTP 1º Mec. Industrial"},
+  {name:"González Cedrez, Ezequiel",d:29,m:7,y:2008,g:"BTP 1º Carpintería"},
+  {name:"Olivera Hornos, Emiliano",d:29,m:7,y:2007,g:"1º Mec. Automotriz C"},
+  {name:"Silvera Diaz, Daniel",d:3,m:8,y:2007,g:"BTP 1º Mec. Industrial"},
+  {name:"Diaz Cabrera, Joaquin",d:5,m:8,y:2007,g:"1º Mec. Automotriz C"},
+  {name:"Batista Mezquita, Cristian",d:6,m:8,y:2005,g:"3º Mec. Automotriz A"},
+  {name:"Suárez Dávila, Guillermo Ezequiel",d:6,m:8,y:2005,g:"BTP 2º Mec. Industrial"},
+  {name:"Rodríguez Carreras, Ignacio",d:8,m:8,y:2008,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Michelena Bethencourt, Santiago",d:11,m:8,y:2006,g:"BTP 2º Mec. Industrial"},
+  {name:"Rodríguez Conde, Felipe",d:11,m:8,y:2008,g:"2º Mec. Automotriz A"},
+  {name:"Dachi Estévez, Lorenzo",d:12,m:8,y:2008,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Batista Rodríguez, Shair",d:16,m:8,y:2009,g:"1º Mec. Automotriz C"},
+  {name:"Aguirre Rodriguez, Martín",d:22,m:8,y:2007,g:"1º Mec. Automotriz C"},
+  {name:"Fontes Acosta, Federico",d:22,m:8,y:2007,g:"1º Mec. Automotriz C"},
+  {name:"da Silva Hernández, Bautista",d:22,m:8,y:2008,g:"BTP 3º Mec. Industrial"},
+  {name:"Brasil Feola, Mauricio",d:23,m:8,y:2007,g:"BTP 3º Inst. Eléctricas"},
+  {name:"Caraballo Bustamante, Marcos",d:23,m:8,y:2007,g:"BTP 3º Inst. Eléctricas"},
+  {name:"Cuello Medina, Agustín",d:25,m:8,y:2008,g:"3º Mec. Automotriz A"},
+  {name:"Charlo González, Leandro",d:27,m:8,y:2008,g:"2º Inst. Eléctricas"},
+  {name:"Verdía Bacci, Jorge Guillermo",d:29,m:8,y:2010,g:"1º Mec. Automotriz A"},
+  {name:"Oliva Peña, Franco Alberto",d:2,m:9,y:2005,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Rodríguez Viera, Augusto",d:2,m:9,y:2005,g:"3º Mec. Automotriz B"},
+  {name:"Franco Silva, Luis Alberto",d:3,m:9,y:2008,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Domínguez Fontans, Maximiliano",d:4,m:9,y:2009,g:"2º Mec. Automotriz A"},
+  {name:"Liguori Calvento, Mateo",d:5,m:9,y:2006,g:"1º Mec. Automotriz C"},
+  {name:"Molina Felix, Lucas",d:5,m:9,y:2008,g:"3º Mec. Automotriz A"},
+  {name:"De los Santos Hornes, Axel",d:7,m:9,y:2010,g:"BTP 1º B Mec. Automotriz"},
+  {name:"García Wehking, Guillermo",d:7,m:9,y:2004,g:"3º Mec. Automotriz A"},
+  {name:"Gómez Moreira, Miguel Andrés",d:7,m:9,y:2009,g:"BTP 2º B Mec. Automotriz"},
+  {name:"García Tabarez, Anastasio",d:11,m:9,y:2006,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Machado Núñez, Jonathan Michael",d:12,m:9,y:2006,g:"BTP 3º Inst. Eléctricas"},
+  {name:"Somoza Miguez, Martín",d:12,m:9,y:2009,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Galván Lima, Matías Claudio",d:13,m:9,y:2003,g:"BTP 2º Mec. Industrial"},
+  {name:"Pereira Lapás, Valentín",d:13,m:9,y:2008,g:"BTP 2º Carpintería"},
+  {name:"Camblong Gimeno, Raico",d:14,m:9,y:2006,g:"3º Mec. Automotriz B"},
+  {name:"Márquez García, Sebastián",d:14,m:9,y:2004,g:"BTP 2º Mec. Industrial"},
+  {name:"Patiño Fernandez, Gervasio",d:14,m:9,y:2001,g:"BTP 1º Carpintería"},
+  {name:"Acuña Leoni, Jonathan",d:15,m:9,y:2008,g:"2º Inst. Eléctricas"},
+  {name:"Claro Alves, Kevin Nicolas",d:15,m:9,y:2006,g:"1º Mec. Automotriz C"},
+  {name:"Mailhos Reboledo, Natalia",d:16,m:9,y:2009,g:"BTP 1º Mec. Industrial"},
+  {name:"Orihuela Acuña, José Ignacio",d:17,m:9,y:2006,g:"1º Mec. Automotriz C"},
+  {name:"Álvez Galeano, Pablo Javier",d:17,m:9,y:2010,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Balzami Hirczak, Facundo",d:22,m:9,y:2009,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Terra Sellanes, Octavio",d:22,m:9,y:2002,g:"3º Mec. Automotriz B"},
+  {name:"González Passarino, Bautista",d:23,m:9,y:2007,g:"BTP 1º Mec. Industrial"},
+  {name:"Mila Borges, Alan",d:27,m:9,y:2009,g:"1º Mec. Automotriz C"},
+  {name:"Trinidad Morales, Gabril",d:28,m:9,y:2009,g:"BTP 1º Inst. Eléctricas"},
+  {name:"Capurro Pereira, Juan Bautista",d:29,m:9,y:2009,g:"2º Inst. Eléctricas"},
+  {name:"Hernández Martínez, Thiago Nahuel",d:30,m:9,y:2009,g:"1º Mec. Automotriz A"},
+  {name:"Ocampo Reyes, Lucas",d:30,m:9,y:2005,g:"3º Mec. Automotriz A"},
+  {name:"Schnyder Jorcín, Bryan",d:2,m:10,y:2007,g:"1º Mec. Automotriz C"},
+  {name:"Moraes Arcosa, Ezequiel",d:3,m:10,y:2009,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Vallejo Sequeira, Luciano",d:3,m:10,y:2003,g:"2º Inst. Eléctricas"},
+  {name:"Díaz González, Pedro",d:15,m:10,y:2008,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Porta Pardiña, Juan Pablo",d:17,m:10,y:2009,g:"1º Mec. Automotriz A"},
+  {name:"Zecchi Ricobaldi, Federico",d:18,m:10,y:2008,g:"3º Mec. Automotriz B"},
+  {name:"Burci Umpierrez, Alejandro",d:19,m:10,y:2005,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Baldenegro Lopez, Nicolás",d:23,m:10,y:2010,g:"BTP 1º Carpintería"},
+  {name:"Bersais Martínez, David",d:23,m:10,y:2009,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Chury Gonzalez, Rodrigo Ezequiel",d:24,m:10,y:2007,g:"1º Mec. Automotriz A"},
+  {name:"Santos Caviglia, Ian",d:27,m:10,y:2010,g:"1º Mec. Automotriz A"},
+  {name:"Vaz Fernandez, Haley Izaym",d:27,m:10,y:2010,g:"1º Mec. Automotriz A"},
+  {name:"García, Julián",d:30,m:10,y:2009,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Saccone Tesoriero, Mateo",d:31,m:10,y:2005,g:"3º Mec. Automotriz A"},
+  {name:"Piñeiro Negri, Francisco",d:2,m:11,y:2003,g:"3º Mec. Automotriz A"},
+  {name:"Olivera Castelli, Jareck Ariel",d:3,m:11,y:2007,g:"1º Mec. Automotriz A"},
+  {name:"Rodríguez Amado, Santiago",d:6,m:11,y:2008,g:"BTP 2º Carpintería"},
+  {name:"Rodríguez Díaz, Facundo Ezequiel",d:6,m:11,y:2009,g:"BTP 2º B Mec. Automotriz"},
+  {name:"Añon Carbone, Santiago Nicolas",d:10,m:11,y:2010,g:"1º Mec. Automotriz A"},
+  {name:"Gomez Niche, Thiago",d:10,m:11,y:2007,g:"BTP 1º Carpintería"},
+  {name:"Olivera Hernández, Marcos",d:13,m:11,y:2007,g:"1º Mec. Automotriz C"},
+  {name:"Ramírez Udaquiola, Natahel",d:13,m:11,y:2005,g:"BTP 3º Mec. Industrial"},
+  {name:"Vicuña Rodríguez, Fabián",d:15,m:11,y:2009,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Volpe Avellaneda, Luca Antonio",d:16,m:11,y:2006,g:"1º Mec. Automotriz C"},
+  {name:"Barros Lagrega, Diego Martin",d:19,m:11,y:2011,g:"1º Mec. Automotriz A"},
+  {name:"Geymonat Da Silva, Juan Daniel",d:24,m:11,y:2004,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Rius Martínez, Santiago",d:25,m:11,y:2006,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Brum Sanchis, Lautaro Gabriel",d:26,m:11,y:2007,g:"1º Mec. Automotriz A"},
+  {name:"Molina, Esteban Ricardo",d:26,m:11,y:2005,g:"2º Mec. Automotriz A"},
+  {name:"De Gaspari Oyarvide, Martín",d:30,m:11,y:2005,g:"3º Mec. Automotriz B"},
+  {name:"Fernández Villarreal, Thiago",d:1,m:12,y:2007,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Martínez Martínez, Maximiliano",d:4,m:12,y:2007,g:"3º Mec. Automotriz A"},
+  {name:"Montaldo, Juan Ignacio",d:7,m:12,y:2006,g:"BTP 1º Inst. Eléctricas"},
+  {name:"Muniz Méndez, Cristian Javier",d:7,m:12,y:2007,g:"1º Mec. Automotriz A"},
+  {name:"Vila, Juan Pablo",d:7,m:12,y:2005,g:"BTP 1º Inst. Eléctricas"},
+  {name:"Correa Pacheco, Michael",d:8,m:12,y:2009,g:"BTP 1º Mec. Industrial"},
+  {name:"Revetria Perdomo, Darío",d:9,m:12,y:2006,g:"3º Mec. Automotriz A"},
+  {name:"Alonzo Larrañaga, Gerardo Martín",d:10,m:12,y:2008,g:"BTP 3º Carpintería"},
+  {name:"Pinotti Dorado, Piero",d:11,m:12,y:2006,g:"BTP 1º Mec. Industrial"},
+  {name:"Anaya San Martín, Nicolás",d:12,m:12,y:2008,g:"BTP 1º Inst. Eléctricas"},
+  {name:"Rodriguez Ercila, Mauro",d:13,m:12,y:2006,g:"BTP 1º Mec. Industrial"},
+  {name:"Pombo Curbelo, Enzo",d:17,m:12,y:2009,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Scorzo Graña, Joaquín",d:17,m:12,y:2008,g:"2º Mec. Automotriz A"},
+  {name:"Tourn Morante, Emanuel",d:17,m:12,y:2004,g:"3º Mec. Automotriz A"},
+  {name:"Fernández Rocha, Hugo Federico",d:18,m:12,y:2004,g:"BTP 3º Mec. Industrial"},
+  {name:"Vespoli Nocetti, Francisco",d:22,m:12,y:2010,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Symonds Bianchi, Patricio",d:25,m:12,y:2010,g:"BTP 1º B Mec. Automotriz"},
+  {name:"Espinosa Fiorelli, Massimo",d:27,m:12,y:2006,g:"1º Mec. Automotriz C"},
+  {name:"Silvera Márquez, Carlos Enrique",d:27,m:12,y:2010,g:"1º Mec. Automotriz A"},
+  {name:"Etchebarne Acuña, Juan Esteban",d:28,m:12,y:2004,g:"BTP 2º C Mec. Automotriz"},
+  {name:"Albertini Barreto, Ricardo",d:29,m:12,y:2005,g:"3º Mec. Automotriz A"},
+];
+
+// ── STATE ──
+const today = new Date();
+const todayD = today.getDate();
+const todayM = today.getMonth() + 1;
+let currentMonth = todayM;
+let currentView = 'list'; // 'list' | 'calendar'
+let searchQuery = '';
+
+// ── HELPERS ──
+function age(y) { return 2026 - y; }
+
+function isToday(d, m) { return d === todayD && m === todayM; }
+
+function getDaysInMonth(m) {
+  return new Date(2026, m, 0).getDate();
+}
+
+function getFirstDayOfMonth(m) {
+  return new Date(2026, m - 1, 1).getDay();
+}
+
+// ── RENDER NAV ──
+function renderNav() {
+  const tabs = document.getElementById('navTabs');
+  tabs.innerHTML = '';
+  for (let m = 1; m <= 12; m++) {
+    const count = STUDENTS.filter(s => s.m === m).length;
+    const hasTodayBday = STUDENTS.some(s => s.m === m && s.d === todayD && m === todayM);
+    const btn = document.createElement('button');
+    btn.className = `nav-tab${m === currentMonth ? ' active' : ''}${hasTodayBday ? ' has-today' : ''}`;
+    btn.innerHTML = `${hasTodayBday ? '🎂 ' : ''}${MONTHS[m].slice(0,3).toUpperCase()}<br><span style="font-size:10px;opacity:0.7">${count}</span>`;
+    btn.onclick = () => { currentMonth = m; renderAll(); scrollToActiveTab(); };
+    tabs.appendChild(btn);
+  }
+}
+
+function scrollToActiveTab() {
+  const tabs = document.getElementById('navTabs');
+  const active = tabs.querySelector('.active');
+  if (active) active.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+}
+
+// ── TODAY BANNER ──
+function renderTodayBanner() {
+  const todayStudents = STUDENTS.filter(s => isToday(s.d, s.m));
+  const banner = document.getElementById('todayBanner');
+  const text = document.getElementById('todayBannerText');
+  if (todayStudents.length > 0) {
+    banner.style.display = 'flex';
+    const names = todayStudents.map(s => s.name.split(',')[0]).join(', ');
+    text.textContent = `¡Hoy cumplen años: ${names}!`;
+    triggerConfetti();
+  } else {
+    banner.style.display = 'none';
+  }
+}
+
+// ── CONFETTI ──
+function triggerConfetti() {
+  const container = document.getElementById('confettiContainer');
+  const colors = ['#C0390B','#E85A10','#F5C200','#FF8C00','#FF6B35'];
+  for (let i = 0; i < 40; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    piece.style.animationDuration = (2 + Math.random() * 3) + 's';
+    piece.style.animationDelay = (Math.random() * 2) + 's';
+    container.appendChild(piece);
+    setTimeout(() => piece.remove(), 5000);
+  }
+}
+
+// ── RENDER STUDENT CARD ──
+function renderCard(s, showDay = false) {
+  const isTod = isToday(s.d, s.m);
+  const a = age(s.y);
+  return `
+    <div class="student-card${isTod ? ' today-card' : ''}">
+      <span class="card-cake">🎂</span>
+      <div class="card-info">
+        <div class="card-name">${s.name}</div>
+        <div class="card-date">${String(s.d).padStart(2,'0')}/${String(s.m).padStart(2,'0')}/${s.y}</div>
+        <div class="card-group">${s.g}</div>
+      </div>
+      <div class="card-age${isTod ? ' today-age' : ''}">${a}</div>
+    </div>`;
+}
+
+// ── RENDER LIST VIEW ──
+function renderListView(students) {
+  // Group by day
+  const byDay = {};
+  students.forEach(s => {
+    if (!byDay[s.d]) byDay[s.d] = [];
+    byDay[s.d].push(s);
+  });
+
+  const days = Object.keys(byDay).map(Number).sort((a,b) => a-b);
+  let html = '';
+
+  days.forEach((day, i) => {
+    const isTod = day === todayD && currentMonth === todayM;
+    html += `<div class="day-group" style="animation-delay:${i*0.05}s">
+      <div class="day-header">
+        <div class="day-number${isTod ? ' today' : ''}">${day}</div>
+        <div class="day-line"></div>
+        ${isTod ? '<span class="today-badge">Hoy 🎉</span>' : ''}
+      </div>`;
+    byDay[day].forEach(s => { html += renderCard(s); });
+    html += `</div>`;
+  });
+
+  return html;
+}
+
+// ── RENDER CALENDAR VIEW ──
+function renderCalendarView(students) {
+  const birthdayDays = new Set(students.map(s => s.d));
+  const daysInMonth = getDaysInMonth(currentMonth);
+  const firstDay = getFirstDayOfMonth(currentMonth);
+
+  let html = '<div class="calendar-grid">';
+  ['D','L','M','X','J','V','S'].forEach(d => {
+    html += `<div class="cal-day-label">${d}</div>`;
+  });
+
+  // Empty cells
+  for (let i = 0; i < firstDay; i++) {
+    html += `<div class="cal-day empty"></div>`;
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const hasBday = birthdayDays.has(d);
+    const isTod = d === todayD && currentMonth === todayM;
+    const count = students.filter(s => s.d === d).length;
+    html += `<div class="cal-day${hasBday ? ' has-birthday' : ''}${isTod ? ' is-today' : ''}"
+      onclick="jumpToDay(${d})"
+    >${d}${count > 1 ? `<span class="dot"></span>` : (hasBday ? `<span class="dot"></span>` : '')}
+    </div>`;
+  }
+
+  html += '</div>';
+
+  // List below calendar
+  html += renderListView(students);
+  return html;
+}
+
+// ── JUMP TO DAY ──
+function jumpToDay(day) {
+  currentView = 'list';
+  renderMain();
+  setTimeout(() => {
+    const groups = document.querySelectorAll('.day-group');
+    groups.forEach(g => {
+      if (g.querySelector('.day-number') &&
+          g.querySelector('.day-number').textContent == day) {
+        g.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }, 100);
+}
+window.jumpToDay = jumpToDay;
+
+// ── RENDER MAIN ──
+function renderMain() {
+  const content = document.getElementById('mainContent');
+  let students;
+
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    students = STUDENTS.filter(s =>
+      s.name.toLowerCase().includes(q) ||
+      s.g.toLowerCase().includes(q)
+    );
+
+    const toggleHtml = `<div class="search-results-header">
+      ${students.length} resultado${students.length !== 1 ? 's' : ''} para "${searchQuery}"
+    </div>`;
+
+    if (students.length === 0) {
+      content.innerHTML = toggleHtml + `<div class="empty-state">
+        <div class="emoji">🔍</div>
+        <p>No se encontraron alumnos</p>
+      </div>`;
+    } else {
+      const byMonth = {};
+      students.forEach(s => {
+        if (!byMonth[s.m]) byMonth[s.m] = [];
+        byMonth[s.m].push(s);
+      });
+      let html = toggleHtml;
+      Object.keys(byMonth).sort((a,b) => a-b).forEach(m => {
+        html += `<div style="font-size:13px;font-weight:800;color:var(--orange);
+          text-transform:uppercase;letter-spacing:0.5px;margin:16px 0 8px">
+          ${MONTHS[m]}
+        </div>`;
+        html += renderListView(byMonth[m]);
+      });
+      content.innerHTML = html;
+    }
+    return;
+  }
+
+  students = STUDENTS.filter(s => s.m === currentMonth)
+    .sort((a,b) => a.d - b.d || a.name.localeCompare(b.name));
+
+  const toggleHtml = `
+    <div class="month-summary">
+      <div>
+        <div class="month-summary-count">${students.length}</div>
+        <div class="month-summary-label">cumpleaños en ${MONTHS[currentMonth]}</div>
+      </div>
+      <div class="month-summary-icon">🎂</div>
+    </div>
+    <div class="view-toggle">
+      <button class="toggle-btn${currentView==='list'?' active':''}" onclick="setView('list')">
+        ☰ Lista
+      </button>
+      <button class="toggle-btn${currentView==='calendar'?' active':''}" onclick="setView('calendar')">
+        📅 Calendario
+      </button>
+    </div>`;
+
+  if (students.length === 0) {
+    content.innerHTML = toggleHtml + `<div class="empty-state">
+      <div class="emoji">🎈</div>
+      <p>Sin cumpleaños este mes</p>
+    </div>`;
+    return;
+  }
+
+  const bodyHtml = currentView === 'calendar'
+    ? renderCalendarView(students)
+    : renderListView(students);
+
+  content.innerHTML = toggleHtml + bodyHtml;
+}
+
+function setView(v) {
+  currentView = v;
+  renderMain();
+}
+window.setView = setView;
+
+function renderAll() {
+  renderNav();
+  renderTodayBanner();
+  renderMain();
+}
+
+// ── SEARCH ──
+document.getElementById('searchInput').addEventListener('input', function() {
+  searchQuery = this.value.trim();
+  renderAll();
+});
+
+// ── PWA INSTALL ──
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const prompt = document.getElementById('installPrompt');
+  prompt.style.display = 'flex';
+  prompt.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt = null;
+      prompt.style.display = 'none';
+    }
+  });
+});
+
+// ── INIT ──
+renderAll();
+scrollToActiveTab();
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "Cumpleaños Talleres Don Bosco 2026",
+  "short_name": "Cumpleaños TDB",
+  "description": "App de cumpleaños de alumnos de Talleres Don Bosco 2026",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#C0390B",
+  "theme_color": "#C0390B",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
